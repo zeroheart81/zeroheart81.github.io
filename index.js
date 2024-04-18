@@ -118,7 +118,7 @@ const Barrage = class {
             user_nickName: user.nickname,
             user_avatar: user.avatar_thumb.url_list[0],
             user_gender: user.gender === 1 ? 'M' : 'F',
-            user_isAdmin: user.userAttr.is_admin,
+            user_isAdmin: user.user_attr.is_admin,
             user_fansLightName: "",
             user_levelImage: "",
             user_fansLevel: this.getLevel(user.badge_image_list, 7)
