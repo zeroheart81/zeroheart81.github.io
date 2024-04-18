@@ -113,8 +113,8 @@ const Barrage = class {
             return
         }
         let msg = {
-            user_level: this.getLevel(user.badge_Image_List, 1),
-            user_fansLevel: this.getLevel(user.badge_Image_List, 7),
+            user_level: this.getLevel(user.badge_image_list, 1),
+            user_fansLevel: this.getLevel(user.badge_image_list, 7),
             user_id: user.id,
             user_nickName: user.nickname,
             user_avatar: user.avatarThumb.urlList[0],
