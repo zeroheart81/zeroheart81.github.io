@@ -114,14 +114,14 @@ const Barrage = class {
         }
         let msg = {
             user_level: this.getLevel(user.badge_image_list, 1),
-            user_fansLevel: this.getLevel(user.badge_image_list, 7),
             user_id: user.id,
             user_nickName: user.nickname,
-            user_avatar: user.avatarThumb.urlList[0],
-            user_gender: user.gender === 1 ? '男' : '女',
-            user_isAdmin: user.userAttr.isAdmin,
+            user_avatar: user.avatar_thumb.url_list[0],
+            user_gender: user.gender === 1 ? 'M' : 'F',
+            user_isAdmin: user.userAttr.is_admin,
             user_fansLightName: "",
-            user_levelImage: ""
+            user_levelImage: "",
+            user_fansLevel: this.getLevel(user.badge_image_list, 7)
         }
         return msg
     }
