@@ -183,6 +183,18 @@ const Barrage = class {
                     msg_content: msg.content
                 })
                 break
+            case 'WebcastMemberMessage':
+                result = Object.assign(result,{
+                    //  xx來了
+                    isGift: false,
+                    msg_content: msg.content
+                })
+            case 'WebcastLikeMessage':
+                result = Object.assign(result,{
+                    //  xx來了
+                    isGift: false,
+                    msg_content: msg.content
+                })
             default:
                 result = Object.assign(result, {
                     isGift: false,
