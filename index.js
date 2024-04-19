@@ -71,7 +71,7 @@ const Barrage = class {
                 for (let mutation of mutationsList) {
                     if (mutation.type === 'childList' && mutation.addedNodes.length) {
                         let dom = mutation.addedNodes[0]
-                        let user = dom[this.propsId].children.props.message.payload.user
+                        //let user = dom[this.propsId].children.props.message.payload.user
                         let msg = {
                             ...this.getUser(user),
                             ... { msg_content: `${user.nickname} 来了` }
