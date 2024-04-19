@@ -108,7 +108,7 @@ const Barrage = class {
                     } else if (mutation.removedNodes.length) {
                         //chat room 刪除頂端信息
                     }
-                }else{
+                } else {
                     alert('mutation.type異常')
                 }
             }
@@ -184,14 +184,26 @@ const Barrage = class {
                 })
                 break
             case 'WebcastMemberMessage':
-                result = Object.assign(result,{
+                result = Object.assign(result, {
                     //  xx來了
                     isGift: false,
                     msg_content: msg.content
                 })
             case 'WebcastLikeMessage':
-                result = Object.assign(result,{
-                    //  xx來了
+                result = Object.assign(result, {
+                    //  給主播點贊
+                    isGift: false,
+                    msg_content: msg.content
+                })
+            case 'WebcastRoomMessage':
+                result = Object.assign(result, {
+                    //  分享直播間
+                    isGift: false,
+                    msg_content: msg.content
+                })
+            case 'WebcastFansclubMessage':
+                result = Object.assign(result, {
+                    //  加入粉絲團
                     isGift: false,
                     msg_content: msg.content
                 })
