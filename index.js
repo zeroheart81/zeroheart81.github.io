@@ -16,7 +16,7 @@ const Barrage = class {
     option = {}
     event = {}
     eventRegirst = {}
-    constructor(option = { message: true }) {
+    constructor(option = { message: true, join: true }) {
         this.option = option
         let { link, removePlay } = option
         if (link) {
