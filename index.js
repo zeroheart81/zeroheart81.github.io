@@ -89,20 +89,27 @@ const Barrage = class {
 
         this.chatObserverrom = new MutationObserver((mutationsList, observer) => {
             for (let mutation of mutationsList) {
-                if (mutation.type === 'childList' && mutation.addedNodes.length) {
-                    let b = mutation.addedNodes[0]
-                    if (b[this.propsId].children.props.message) {
-                        let message = this.messageParse(b)
-                        if (message) {
-                            if (this.eventRegirst.message) {
-                                this.event['join'](message)
+                if (mutation.type === 'childList') {
+                    if (mutation.addedNodes.length) {
+                        let b = mutation.addedNodes[0]
+                        if (b[this.propsId].children.props.message) {
+                            let message = this.messageParse(b)
+                            if (message) {
+                                if (this.eventRegirst.message) {
+                                    this.event['join'](message)
+                                }
+                                if (_this.option.message === false && !message.isGift) {
+                                    alert('異常信息 return')
+                                    return
+                                }
+                                this.ws.send(JSON.stringify({ action: 'message', message: message }));
                             }
-                            if (_this.option.message === false && !message.isGift) {
-                                return
-                            }
-                            this.ws.send(JSON.stringify({ action: 'message', message: message }));
                         }
+                    } else if (mutation.removedNodes.length) {
+                        //chat room 刪除頂端信息
                     }
+                }else{
+                    alert('mutation.type異常')
                 }
             }
         });
@@ -191,7 +198,7 @@ if (window.onDouyinServer) {
     window.onDouyinServer()
 }
 
-window.removeVideoLayer = function() {
+window.removeVideoLayer = function () {
     document.querySelector('.basicPlayer').remove()
     console.log('删除画面成功,不影响弹幕信息接收')
 }
