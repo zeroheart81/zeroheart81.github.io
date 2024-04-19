@@ -66,6 +66,7 @@ const Barrage = class {
     }
     runServer() {
         let _this = this
+        alert("wss begin!!!")
         if (this.option.join) {
             this.observer = new MutationObserver((mutationsList) => {
                 for (let mutation of mutationsList) {
@@ -107,6 +108,7 @@ const Barrage = class {
             }
         });
         this.chatObserverrom.observe(this.chatDom, { childList: true });
+        alert("wss end!!!")
     }
     getUser(user) {
         if (!user) {
