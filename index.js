@@ -69,6 +69,7 @@ const Barrage = class {
                 if (this.ws.readyState === 1) {
                     this.openWs()
                     clearInterval(this.timer)
+                    this.timer = null
                 }
             }, 2000)
 
