@@ -11,12 +11,13 @@ const Barrage = class {
     chatDom = null
     roomJoinDom = null
     ws = null
-    inited = false
     observer = null
     chatObserverrom = null
     option = {}
     event = {}
     eventRegirst = {}
+    inited = false
+    removeGiftList = true
     constructor(option = { message: true, join: true }) {
         this.option = option
         let { link, removePlay } = option
@@ -25,6 +26,11 @@ const Barrage = class {
         }
         if (removePlay) {
             document.querySelector('.basicPlayer').remove()
+            console.log(`[${new Date().toLocaleTimeString()}]`, '屏蔽播放窗！')
+        }
+        if (removeGiftList){
+            document.querySelector('.gifts-container').remove()
+            console.log(`[${new Date().toLocaleTimeString()}]`, '屏蔽禮品籃')
         }
         this.propsId = Object.keys(document.querySelector('.webcast-chatroom___list'))[1]
         this.chatDom = document.querySelector('.webcast-chatroom___items').children[0]
