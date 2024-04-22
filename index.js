@@ -67,9 +67,7 @@ const Barrage = class {
             console.log('状态 ->', this.ws.readyState)
             setTimeout(() => {
                 if (this.ws.readyState === 1) {
-                    this.ws.onopen = () => {
-                        this.openWs()
-                    }
+                    this.openWs()
                 }
             }, 2000)
 
