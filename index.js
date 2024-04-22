@@ -18,7 +18,7 @@ const Barrage = class {
     eventRegirst = {}
     inited = false
     removePlayr = false
-    removeGiftList = true
+    removeGift = true
     constructor(option = { message: true, join: true }) {
         this.option = option
         let { link, removePlay } = option
@@ -29,7 +29,7 @@ const Barrage = class {
             document.querySelector('.basicPlayer').remove()
             console.log(`[${new Date().toLocaleTimeString()}]`, '屏蔽播放窗！')
         }
-        if (this.removeGiftList) {
+        if (this.removeGift) {
             this.removeGiftList()
         }
         this.propsId = Object.keys(document.querySelector('.webcast-chatroom___list'))[1]
@@ -239,6 +239,16 @@ const Barrage = class {
         }
         return result
     }
+    removeGiftList = function () {
+        setTimeout(() => {
+            if (document.querySelector('.gifts-container')) {
+                document.querySelector('.gifts-container').remove()
+                console.log('[${new Date().toLocaleTimeString()}]', '屏蔽禮品籃')
+            } else {
+                this.removeGiftList()
+            }
+        }, 2000)
+    }
 }
 
 if (window.onDouyinServer) {
@@ -248,15 +258,4 @@ if (window.onDouyinServer) {
 window.removeVideoLayer = function () {
     document.querySelector('.basicPlayer').remove()
     console.log('删除画面成功,不影响弹幕信息接收')
-}
-
-window.removeGiftList = function () {
-    setTimeout(() => {
-        if (document.querySelector('.gifts-container')) {
-            document.querySelector('.gifts-container').remove()
-            console.log('[${new Date().toLocaleTimeString()}]', '屏蔽禮品籃')
-        } else {
-            this.removeGiftList()
-        }
-    }, 2000)
 }
