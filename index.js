@@ -47,7 +47,9 @@ const Barrage = class {
     }
     wsClose() {
         console.log('服务器断开')
+        alert("wsclosed")
         if (this.timer !== null) {
+            console.log('wsClose.return!')
             return
         }
         this.observer && this.observer.disconnect();
