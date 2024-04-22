@@ -81,7 +81,9 @@ const Barrage = class {
                         if (this.eventRegirst.join) {
                             this.event['join'](msg)
                         }
-                        this.ws.send(JSON.stringify({ action: 'join', message: msg }));
+                        if (this.ws.readyState === 1){
+                            this.ws.send(JSON.stringify({ action: 'join', message: msg }));
+                        }
                     }
                 }
             });
@@ -104,7 +106,9 @@ const Barrage = class {
                                     alert('異常信息 return')
                                     return
                                 }
-                                this.ws.send(JSON.stringify({ action: 'message', message: message }));
+                                if (this.ws.readyState === 1){
+                                    this.ws.send(JSON.stringify({ action: 'message', message: message }));
+                                }
                             }
                         }
                     } else if (mutation.removedNodes.length) {
