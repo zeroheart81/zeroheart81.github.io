@@ -28,22 +28,7 @@ const Barrage = class {
         this.propsId = Object.keys(document.querySelector('.webcast-chatroom___list'))[1]
         this.chatDom = document.querySelector('.webcast-chatroom___items').children[0]
         this.roomJoinDom = document.querySelector('.webcast-chatroom___bottom-message')
-        while (this.ws === null || this.ws.readyState !== 1) {
-            console.log(`[${new Date().toLocaleTimeString()}]`, '嘗試重新连接服務器...')
-            setTimeout(() => {
-                this.ws = new WebSocket(this.wsurl)
-                if (this.ws) {
-                    console.log(`[${new Date().toLocaleTimeString()}]`, '網絡状态 ->', this.ws.readyState)
-                    if (this.ws.readyState === 1) {
-                        console.log(`[${new Date().toLocaleTimeString()}]`, '服务重新连接成功!')
-                    }
-                }
-            }, 2000)
-        }
-        this.ws.onclose = this.wsClose
-        this.ws.onopen = () => {
-            this.openWs()
-        }
+        this.reConnect()
     }
 
     // 消息事件 , join, message
@@ -52,7 +37,6 @@ const Barrage = class {
         this.event[e] = cb
     }
     openWs() {
-        this.runServer()
         if (this.ws.readyState === 1) {
             console.log(`[${new Date().toLocaleTimeString()}]`, '服务已经连接成功!')
         } else {
@@ -60,7 +44,7 @@ const Barrage = class {
         }
     }
     wsClose() {
-        console.log('服务器断开')
+        console.log('服务器断开...')
     }
 
     reConnect() {
@@ -70,13 +54,23 @@ const Barrage = class {
 
         console.log('正在等待服务器启动..')
         this.timer = setInterval(() => {
-            this.ws = new WebSocket(this.wsurl)
-            console.log('状态 ->', this.ws.readyState)
+            let newws = new WebSocket(this.wsurl)
+            console.log('状态 ->', newws)
             setTimeout(() => {
-                if (this.ws.readyState === 1) {
+                if (newws.readyState === 1) {
                     console.log(`[${new Date().toLocaleTimeString()}]`, '服务重新连接成功!')
                     clearInterval(this.timer)
                     this.timer = null
+
+                    //  初始化
+                    if (this.ws === null) {
+                        this.ws = newws
+                        this.runServer()
+                        this.ws.onclose = this.wsClose
+                        this.ws.onopen = () => {
+                            this.openWs()
+                        }
+                    }
                 }
             }, 2000)
 
