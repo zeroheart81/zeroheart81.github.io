@@ -64,13 +64,13 @@ const Barrage = class {
 
                     //  初始化
                     if (this.ws === null) {
-                        this.ws = newws
                         this.runServer()
                         this.ws.onclose = this.wsClose
                         this.ws.onopen = () => {
                             this.openWs()
                         }
                     }
+                    this.ws = newws
                 }
             }, 2000)
 
