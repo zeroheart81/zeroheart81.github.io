@@ -50,9 +50,6 @@ const Barrage = class {
     }
     wsClose() {
         console.log('服务器断开')
-
-        this.observer && this.observer.disconnect();
-        this.chatObserverrom && this.chatObserverrom.disconnect();
     }
 
     reConnect() {
