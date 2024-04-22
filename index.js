@@ -25,6 +25,13 @@ const Barrage = class {
         if (link) {
             this.wsurl = link
         }
+        if (this.removePlayr) {
+            document.querySelector('.basicPlayer').remove()
+            console.log(`[${new Date().toLocaleTimeString()}]`, '屏蔽播放窗！')
+        }
+        if (this.removeGiftList) {
+            this.removeGiftList()
+        }
         this.propsId = Object.keys(document.querySelector('.webcast-chatroom___list'))[1]
         this.chatDom = document.querySelector('.webcast-chatroom___items').children[0]
         this.roomJoinDom = document.querySelector('.webcast-chatroom___bottom-message')
@@ -64,15 +71,6 @@ const Barrage = class {
                     if (!this.inited) {
                         console.log(`[${new Date().toLocaleTimeString()}]`, '初始化！')
                         this.inited = true
-
-                        if (this.removePlayr) {
-                            document.querySelector('.basicPlayer').remove()
-                            console.log(`[${new Date().toLocaleTimeString()}]`, '屏蔽播放窗！')
-                        }
-                        if (this.removeGiftList) {
-                            document.querySelector('.gifts-container').remove()
-                            console.log(`[${new Date().toLocaleTimeString()}]`, '屏蔽禮品籃')
-                        }
                         this.runServer()
                         this.ws.onclose = this.wsClose
                         this.ws.onopen = () => {
@@ -250,4 +248,15 @@ if (window.onDouyinServer) {
 window.removeVideoLayer = function () {
     document.querySelector('.basicPlayer').remove()
     console.log('删除画面成功,不影响弹幕信息接收')
+}
+
+window.removeGiftList = function () {
+    setTimeout(() => {
+        if (document.querySelector('.gifts-container')) {
+            document.querySelector('.gifts-container').remove()
+            console.log('[${new Date().toLocaleTimeString()}]', '屏蔽禮品籃')
+        } else {
+            this.removeGiftList()
+        }
+    }, 2000)
 }
