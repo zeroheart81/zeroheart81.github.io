@@ -241,8 +241,8 @@ const Barrage = class {
     }
     removeGiftList() {
         setTimeout(() => {
-            if (document.querySelector('[data-e2e="gifts-container"]')) {
-                document.querySelector('[data-e2e="gifts-container"]').remove()
+            if (document.querySelector('div[data-e2e="gifts-container"]')) {
+                document.querySelector('div[data-e2e="gifts-container"]').remove()
                 console.log('[${new Date().toLocaleTimeString()}]', '屏蔽禮品籃')
             } else {
                 this.removeGiftList()
