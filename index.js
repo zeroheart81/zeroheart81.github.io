@@ -11,6 +11,7 @@ const Barrage = class {
     chatDom = null
     roomJoinDom = null
     ws = null
+    inited = false
     observer = null
     chatObserverrom = null
     option = {}
@@ -39,8 +40,6 @@ const Barrage = class {
     openWs() {
         if (this.ws.readyState === 1) {
             console.log(`[${new Date().toLocaleTimeString()}]`, '服务已经连接成功!')
-        } else {
-            this.reConnect()
         }
     }
     wsClose() {
@@ -48,29 +47,27 @@ const Barrage = class {
     }
 
     reConnect() {
-        if (this.timer) {
-            return
-        }
-
-        console.log('正在等待服务器启动..')
+        console.log('正在等待服务器启动...')
         this.timer = setInterval(() => {
-            let newws = new WebSocket(this.wsurl)
-            console.log('状态 ->', newws)
+            if (this.ws.readyState == 1) {
+                return
+            }
+            this.ws = new WebSocket(this.wsurl)
+            console.log('状态 ->', this.ws.readyState)
             setTimeout(() => {
-                if (newws.readyState === 1) {
+                if (this.ws.readyState === 1) {
                     console.log(`[${new Date().toLocaleTimeString()}]`, '服务重新连接成功!')
-                    clearInterval(this.timer)
-                    this.timer = null
 
                     //  初始化
-                    if (this.ws === null) {
+                    if (!this.inited) {
+                        console.log(`[${new Date().toLocaleTimeString()}]`, '初始化！')
+                        this.inited = true
                         this.runServer()
                         this.ws.onclose = this.wsClose
                         this.ws.onopen = () => {
                             this.openWs()
                         }
                     }
-                    this.ws = newws
                 }
             }, 2000)
 
@@ -78,7 +75,6 @@ const Barrage = class {
     }
 
     runServer() {
-        alert('begin runServer')
         let _this = this
         if (this.option.join) {
             this.observer = new MutationObserver((mutationsList) => {
@@ -95,8 +91,6 @@ const Barrage = class {
                         }
                         if (this.ws.readyState === 1) {
                             this.ws.send(JSON.stringify({ action: 'join', message: msg }));
-                        } else {
-                            this.reConnect()
                         }
                     }
                 }
@@ -122,8 +116,6 @@ const Barrage = class {
                                 }
                                 if (this.ws.readyState === 1) {
                                     this.ws.send(JSON.stringify({ action: 'message', message: message }));
-                                } else {
-                                    this.reConnect()
                                 }
                             }
                         }
