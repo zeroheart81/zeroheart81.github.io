@@ -28,12 +28,15 @@ const Barrage = class {
         this.propsId = Object.keys(document.querySelector('.webcast-chatroom___list'))[1]
         this.chatDom = document.querySelector('.webcast-chatroom___items').children[0]
         this.roomJoinDom = document.querySelector('.webcast-chatroom___bottom-message')
-        while (this.ws.readyState !== 1){
+        while (this.ws === null || this.ws.readyState !== 1) {
+            console.log(`[${new Date().toLocaleTimeString()}]`, '嘗試重新连接服務器...')
             setTimeout(() => {
                 this.ws = new WebSocket(this.wsurl)
-                console.log('網絡状态 ->', this.ws.readyState)
-                if (this.ws.readyState === 1) {
-                    console.log(`[${new Date().toLocaleTimeString()}]`, '服务重新连接成功!')
+                if (this.ws) {
+                    console.log(`[${new Date().toLocaleTimeString()}]`, '網絡状态 ->', this.ws.readyState)
+                    if (this.ws.readyState === 1) {
+                        console.log(`[${new Date().toLocaleTimeString()}]`, '服务重新连接成功!')
+                    }
                 }
             }, 2000)
         }
