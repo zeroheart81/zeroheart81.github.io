@@ -7,7 +7,7 @@ const Barrage = class {
     serverurl = "ws://127.0.0.1:9527"
     wsurl = "ws://127.0.0.1:9527"
     timer = null
-    timeinterval = 10 * 1000 // 断线重连轮询间隔
+    timeinterval = 3 * 1000 // 断线重连轮询间隔
     propsId = null
     chatDom = null
     roomJoinDom = null
@@ -48,15 +48,19 @@ const Barrage = class {
     }
     wsClose() {
         console.log('服务器断开')
-        if (this.timer) {
-            console.log('wsClose.return!')
-            return
-        }
+
         this.observer && this.observer.disconnect();
         this.chatObserverrom && this.chatObserverrom.disconnect();
+    }
+
+    reConnect() {
+        if (this.timer) {
+            return
+        }
+
         console.log('正在等待服务器启动..')
         this.timer = setInterval(() => {
-            this.ws = new WebSocket("ws://127.0.0.1:9527");
+            this.ws.reConnect()
             console.log('状态 ->', this.ws.readyState)
             setTimeout(() => {
                 if (this.ws.readyState === 1) {
@@ -66,6 +70,7 @@ const Barrage = class {
 
         }, this.timeinterval)
     }
+
     runServer() {
         let _this = this
         if (this.option.join) {
@@ -81,8 +86,10 @@ const Barrage = class {
                         if (this.eventRegirst.join) {
                             this.event['join'](msg)
                         }
-                        if (this.ws.readyState === 1){
+                        if (this.ws.readyState === 1) {
                             this.ws.send(JSON.stringify({ action: 'join', message: msg }));
+                        } else {
+                            this.reConnect()
                         }
                     }
                 }
@@ -106,8 +113,10 @@ const Barrage = class {
                                     alert('異常信息 return')
                                     return
                                 }
-                                if (this.ws.readyState === 1){
+                                if (this.ws.readyState === 1) {
                                     this.ws.send(JSON.stringify({ action: 'message', message: message }));
+                                } else {
+                                    this.reConnect()
                                 }
                             }
                         }
