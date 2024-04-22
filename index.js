@@ -239,7 +239,7 @@ const Barrage = class {
         }
         return result
     }
-    removeGiftList = function () {
+    removeGiftList() {
         setTimeout(() => {
             if (document.querySelector('.gifts-container')) {
                 document.querySelector('.gifts-container').remove()
