@@ -4,7 +4,6 @@
 // }
 
 const Barrage = class {
-    serverurl = "ws://127.0.0.1:9527"
     wsurl = "ws://127.0.0.1:9527"
     timer = null
     timeinterval = 3 * 1000 // 断线重连轮询间隔
@@ -60,7 +59,7 @@ const Barrage = class {
 
         console.log('正在等待服务器启动..')
         this.timer = setInterval(() => {
-            this.ws.reConnect()
+            this.ws = new WebSocket(this.wsurl)
             console.log('状态 ->', this.ws.readyState)
             setTimeout(() => {
                 if (this.ws.readyState === 1) {
