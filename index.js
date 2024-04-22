@@ -17,6 +17,7 @@ const Barrage = class {
     event = {}
     eventRegirst = {}
     inited = false
+    removePlayr = false
     removeGiftList = true
     constructor(option = { message: true, join: true }) {
         this.option = option
@@ -24,11 +25,11 @@ const Barrage = class {
         if (link) {
             this.wsurl = link
         }
-        if (removePlay) {
+        if (this.removePlayr) {
             document.querySelector('.basicPlayer').remove()
             console.log(`[${new Date().toLocaleTimeString()}]`, '屏蔽播放窗！')
         }
-        if (removeGiftList){
+        if (this.removeGiftList){
             document.querySelector('.gifts-container').remove()
             console.log(`[${new Date().toLocaleTimeString()}]`, '屏蔽禮品籃')
         }
