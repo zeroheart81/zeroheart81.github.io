@@ -49,8 +49,11 @@ const Barrage = class {
     reConnect() {
         console.log('正在等待服务器启动...')
         this.timer = setInterval(() => {
-            if (this.ws.readyState == 1) {
-                return
+            if (this.ws) {
+                if (this.ws.readyState == 1) {
+                    return
+                }
+
             }
             this.ws = new WebSocket(this.wsurl)
             console.log('状态 ->', this.ws.readyState)
