@@ -29,12 +29,9 @@ const Barrage = class {
         this.chatDom = document.querySelector('.webcast-chatroom___items').children[0]
         this.roomJoinDom = document.querySelector('.webcast-chatroom___bottom-message')
         this.ws = new WebSocket(this.wsurl)
-        if (this.ws.readyState === 1) {
-            this.ws.onopen = () => {
-                this.openWs()
-            }
-        } else {
-            this.reConnect()
+        this.ws.onclose = this.wsClose
+        this.ws.onopen = () => {
+            this.openWs()
         }
     }
 
@@ -44,10 +41,12 @@ const Barrage = class {
         this.event[e] = cb
     }
     openWs() {
-        console.log(`[${new Date().toLocaleTimeString()}]`, '服务已经连接成功!')
-        this.ws.onclose = this.wsClose
-        clearInterval(this.timer)
         this.runServer()
+        if (this.ws.readyState === 1) {
+            console.log(`[${new Date().toLocaleTimeString()}]`, '服务已经连接成功!')
+        } else {
+            this.reConnect()
+        }
     }
     wsClose() {
         console.log('服务器断开')
@@ -67,7 +66,7 @@ const Barrage = class {
             console.log('状态 ->', this.ws.readyState)
             setTimeout(() => {
                 if (this.ws.readyState === 1) {
-                    this.openWs()
+                    console.log(`[${new Date().toLocaleTimeString()}]`, '服务重新连接成功!')
                     clearInterval(this.timer)
                     this.timer = null
                 }
