@@ -73,6 +73,7 @@ const Barrage = class {
     }
 
     runServer() {
+        alert('begin runServer')
         let _this = this
         if (this.option.join) {
             this.observer = new MutationObserver((mutationsList) => {
