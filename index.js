@@ -4,6 +4,7 @@
 // }
 
 const Barrage = class {
+    serverurl = "ws://127.0.0.1:9527"
     wsurl = "ws://127.0.0.1:9527"
     timer = null
     timeinterval = 10 * 1000 // 断线重连轮询间隔
@@ -55,7 +56,7 @@ const Barrage = class {
         this.chatObserverrom && this.chatObserverrom.disconnect();
         console.log('正在等待服务器启动..')
         this.timer = setInterval(() => {
-            this.ws = new WebSocket(this.wsurl);
+            this.ws = new WebSocket(this.serverurl);
             console.log('状态 ->', this.ws.readyState)
             setTimeout(() => {
                 if (this.ws.readyState === 1) {
