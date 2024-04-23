@@ -210,26 +210,31 @@ const Barrage = class {
                     //  xx來了
                     msg_content: msg.content
                 })
+                break
             case 'WebcastLikeMessage':
                 result = Object.assign(result, {
                     //  給主播點贊
                     msg_content: msg.content
                 })
+                break
             case 'WebcastRoomMessage':
                 result = Object.assign(result, {
                     //  分享直播間
                     msg_content: msg.content
                 })
+                break
             case 'WebcastFansclubMessage':
                 result = Object.assign(result, {
                     //  加入粉絲團
                     msg_content: msg.content
                 })
+                break
             case 'WebcastRoomMessage':
                 result = Object.assign(result, {
                     //  分享直播间
                     msg_content: msg.content
                 })
+                break
             default:
                 result = Object.assign(result, {
                     msg_content: msg.content
