@@ -191,9 +191,9 @@ const Barrage = class {
                     // repeatCount: parseInt(),
                     msg_content: msg.common.describe,
                     isGift: true,
-                    gift_id: msg.gift.id,
-                    gift_name: msg.gift.name,
-                    // gift_number: parseInt(msg.comboCount),
+                    gift_id: msg.gift.id,       //  禮物ID
+                    gift_name: msg.gift.name,   //  禮物名稱
+                    gift_number: parseInt(msg.comboCount),
                     gift_number: parseInt(msg.repeatCount),
                     gift_image: msg.gift.icon.url_list[0],
                     gift_diamondCount: msg.gift.diamondCount,
@@ -244,7 +244,8 @@ const Barrage = class {
             if (document.querySelector('div[data-e2e="gifts-container"]')) {
                 document.querySelector('div[data-e2e="gifts-container"]').remove()
                 console.log('[${new Date().toLocaleTimeString()}]', '屏蔽禮品籃')
-            } else {
+            }
+            if (document.querySelector('div[data-e2e="gifts-container"]')) {
                 this.removeGiftList()
             }
         }, 2000)
