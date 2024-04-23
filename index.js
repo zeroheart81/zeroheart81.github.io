@@ -174,6 +174,7 @@ const Barrage = class {
         }
         let msg = dom[this.propsId].children.props.message.payload
         let result = {
+            method: msg.common.method,
             repeatCount: null,
             gift_id: null,
             gift_name: null,
@@ -190,7 +191,6 @@ const Barrage = class {
                 result = Object.assign(result, {
                     // repeatCount: parseInt(),
                     msg_content: msg.common.describe,
-                    isGift: true,
                     gift_id: msg.gift.id,       //  禮物ID
                     gift_name: msg.gift.name,   //  禮物名稱
                     gift_number: parseInt(msg.comboCount),
@@ -202,37 +202,36 @@ const Barrage = class {
                 break
             case 'WebcastChatMessage':
                 result = Object.assign(result, {
-                    isGift: false,
                     msg_content: msg.content
                 })
                 break
             case 'WebcastMemberMessage':
                 result = Object.assign(result, {
                     //  xx來了
-                    isGift: false,
                     msg_content: msg.content
                 })
             case 'WebcastLikeMessage':
                 result = Object.assign(result, {
                     //  給主播點贊
-                    isGift: false,
                     msg_content: msg.content
                 })
             case 'WebcastRoomMessage':
                 result = Object.assign(result, {
                     //  分享直播間
-                    isGift: false,
                     msg_content: msg.content
                 })
             case 'WebcastFansclubMessage':
                 result = Object.assign(result, {
                     //  加入粉絲團
-                    isGift: false,
+                    msg_content: msg.content
+                })
+            case 'WebcastRoomMessage':
+                result = Object.assign(result, {
+                    //  分享直播间
                     msg_content: msg.content
                 })
             default:
                 result = Object.assign(result, {
-                    isGift: false,
                     msg_content: msg.content
                 })
                 break
@@ -243,10 +242,11 @@ const Barrage = class {
         setTimeout(() => {
             if (document.querySelector('div[data-e2e="gifts-container"]')) {
                 document.querySelector('div[data-e2e="gifts-container"]').remove()
-                console.log('[${new Date().toLocaleTimeString()}]', '屏蔽禮品籃')
-            }
-            if (document.querySelector('div[data-e2e="gifts-container"]')) {
-                this.removeGiftList()
+                if (document.querySelector('div[data-e2e="gifts-container"]')) {
+                    this.removeGiftList()
+                } else {
+                    console.log('[${new Date().toLocaleTimeString()}]', '屏蔽禮品籃')
+                }
             }
         }, 2000)
     }
