@@ -174,14 +174,7 @@ const Barrage = class {
         }
         let msg = dom[this.propsId].children.props.message.payload
         let result = {
-            method: msg.common.method,
-            repeatCount: null,
-            gift_id: null,
-            gift_name: null,
-            gift_number: null,
-            gift_image: null,
-            gift_diamondCount: null,
-            gift_describe: null,
+            method: msg.common.method
         }
 
         result = Object.assign(result, this.getUser(msg.user))
@@ -189,7 +182,7 @@ const Barrage = class {
             case 'WebcastGiftMessage':
                 console.log(msg)
                 result = Object.assign(result, {
-                    // repeatCount: parseInt(),
+                    //gift_repeatCount: parseInt(), //  数量？
                     msg_content: msg.common.describe,
                     gift_id: msg.gift.id,       //  禮物ID
                     gift_name: msg.gift.name,   //  禮物名稱
@@ -226,12 +219,6 @@ const Barrage = class {
             case 'WebcastFansclubMessage':
                 result = Object.assign(result, {
                     //  加入粉絲團
-                    msg_content: msg.content
-                })
-                break
-            case 'WebcastRoomMessage':
-                result = Object.assign(result, {
-                    //  分享直播间
                     msg_content: msg.content
                 })
                 break
