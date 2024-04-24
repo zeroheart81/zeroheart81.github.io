@@ -160,7 +160,7 @@ const Barrage = class {
             })
             if (item) {
                 msg.user_fansLevel = parseInt(item.content.level)
-                msg.user.user_fansLightName = item.content.name
+                msg.user_fansLightName = item.content.name
             }
         }
         return msg
