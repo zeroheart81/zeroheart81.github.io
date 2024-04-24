@@ -145,7 +145,7 @@ const Barrage = class {
             //user_fansLevelImage: '',
         }
 
-        arr = user.badge_image_list
+        let arr = user.badge_image_list
         if (arr && arr.length > 0) {
             //  荣誉等级
             let item = arr.find(i => {
