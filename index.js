@@ -149,14 +149,14 @@ const Barrage = class {
         if (arr && arr.length > 0) {
             //  荣誉等级
             let item = arr.find(i => {
-                return i.imageType === 1
+                return i.image_type === 1
             })
             if (item) {
                 msg.user_badgelevel = parseInt(item.content.level)
             }
             //  粉丝等级
             item = arr.find(i => {
-                return i.imageType === 7
+                return i.image_type === 7
             })
             if (item) {
                 msg.user_fansLevel = parseInt(item.content.level)
