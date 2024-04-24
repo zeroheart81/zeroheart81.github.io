@@ -89,18 +89,15 @@ const Barrage = class {
             this.observer = new MutationObserver((mutationsList) => {
                 for (let mutation of mutationsList) {
                     if (mutation.type === 'childList' && mutation.addedNodes.length) {
-                        let dom = mutation.addedNodes[0]
-                        let user = dom[this.propsId].children.props.message.payload.user
-                        let msg = {
-                            ...this.getUser(user),
-                            ... { msg_content: `${user.nickname} 来了` }
-                        }
-                        if (this.eventRegirst.join) {
-                            this.event['join'](msg)
-                        }
-                        if (this.ws.readyState === 1) {
-                            this.ws.send(JSON.stringify({ action: 'join', message: msg }));
-                        }
+                        let message = this.messageParse(mutation.addedNodes[0])
+                        if (message) {
+                            if (_this.option.message === false && !message.isGift) {
+                                alert('異常信息 return')
+                                return
+                            }
+                            if (this.ws.readyState === 1) {
+                                this.ws.send(JSON.stringify(message));
+                            }
                     }
                 }
             });
@@ -110,26 +107,16 @@ const Barrage = class {
 
         this.chatObserverrom = new MutationObserver((mutationsList, observer) => {
             for (let mutation of mutationsList) {
-                if (mutation.type === 'childList') {
-                    if (mutation.addedNodes.length) {
-                        let b = mutation.addedNodes[0]
-                        if (b[this.propsId].children.props.message) {
-                            let message = this.messageParse(b)
-                            if (message) {
-                                if (this.eventRegirst.message) {
-                                    this.event['join'](message)
-                                }
-                                if (_this.option.message === false && !message.isGift) {
-                                    alert('異常信息 return')
-                                    return
-                                }
-                                if (this.ws.readyState === 1) {
-                                    this.ws.send(JSON.stringify({ action: 'message', message: message }));
-                                }
-                            }
+                if (mutation.type === 'childList' && mutation.addedNodes.length) {
+                    let message = this.messageParse(mutation.addedNodes[0])
+                    if (message) {
+                        if (_this.option.message === false && !message.isGift) {
+                            alert('異常信息 return')
+                            return
                         }
-                    } else if (mutation.removedNodes.length) {
-                        //chat room 刪除頂端信息
+                        if (this.ws.readyState === 1) {
+                            this.ws.send(JSON.stringify(message));
+                        }
                     }
                 } else {
                     alert('mutation.type異常')
