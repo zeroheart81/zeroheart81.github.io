@@ -164,7 +164,8 @@ const Barrage = class {
         }
         let msg = dom[this.propsId].children.props.message.payload
         let result = {
-            method: msg.common.method
+            method: msg.common.method,
+            user_nickName:'Undefind',
         }
 
         result = Object.assign(result, this.getUser(msg.user))
@@ -201,6 +202,7 @@ const Barrage = class {
                 })
                 break
             case 'WebcastRoomMessage':
+                result.user_nickName = msg.display_text.pieces[0].user_value.user.nickname
                 result = Object.assign(result, {
                     //  分享直播間
                     msg_content: '分享了直播间'
