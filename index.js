@@ -177,8 +177,8 @@ const Barrage = class {
                     msg_content: msg.common.describe,
                     gift_id: msg.gift.id,       //  禮物ID
                     gift_name: msg.gift.name,   //  禮物名稱
-                    gift_comboCount: parseInt(msg.comboCount),
-                    gift_repeatCount: parseInt(msg.repeatCount),
+                    gift_comboCount: parseInt(msg.combo_count),
+                    gift_repeatCount: parseInt(msg.repeat_count),
                     gift_image: msg.gift.icon.url_list[0],
                     gift_diamondCount: msg.gift.diamondCount,
                     gift_describe: msg.gift.describe,
