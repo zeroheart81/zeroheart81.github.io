@@ -174,8 +174,8 @@ const Barrage = class {
                     msg_content: msg.common.describe,
                     gift_id: msg.gift.id,       //  禮物ID
                     gift_name: msg.gift.name,   //  禮物名稱
-                    gift_number: parseInt(msg.comboCount),
-                    gift_number: parseInt(msg.repeatCount),
+                    gift_comboCount: parseInt(msg.comboCount),
+                    gift_repeatCount: parseInt(msg.repeatCount),
                     gift_image: msg.gift.icon.url_list[0],
                     gift_diamondCount: msg.gift.diamondCount,
                     gift_describe: msg.gift.describe,
@@ -189,13 +189,13 @@ const Barrage = class {
             case 'WebcastMemberMessage':
                 result = Object.assign(result, {
                     //  xx來了
-                    msg_content: msg.content
+                    msg_content: '来了'
                 })
                 break
             case 'WebcastLikeMessage':
                 result = Object.assign(result, {
                     //  給主播點贊
-                    msg_content: msg.content
+                    msg_content: '给主播点赞'
                 })
                 break
             case 'WebcastRoomMessage':
