@@ -119,8 +119,8 @@ const Barrage = class {
                             this.ws.send(JSON.stringify(message));
                         }
                     }
-                } else{
-                    if(mutation.removedNodes.length){
+                } else {
+                    if (mutation.removedNodes.length) {
                         //console.log('删除一条信息')
                     }
                 }
@@ -133,31 +133,39 @@ const Barrage = class {
             return
         }
         let msg = {
-            user_level: this.getLevel(user.badge_image_list, 1),
             user_id: user.id,
             user_nickName: user.nickname,
             user_avatar: user.avatar_thumb.url_list[0],
             user_gender: user.gender === 1 ? 'M' : 'F',
             user_isAdmin: user.user_attr.is_admin,
-            user_fansLightName: "",
-            user_levelImage: "",
-            user_fansLevel: this.getLevel(user.badge_image_list, 7)
+            user_badgelevel: 0,
+            //user_badgelevelImage: '',
+            user_fansLightName: '',
+            user_fansLevel: 0,
+            //user_fansLevelImage: '',
+        }
+
+        arr = user.badge_image_list
+        if (arr && arr.length > 0) {
+            //  荣誉等级
+            let item = arr.find(i => {
+                return i.imageType === 1
+            })
+            if (item) {
+                msg.user_badgelevel = parseInt(item.content.level)
+            }
+            //  粉丝等级
+            item = arr.find(i => {
+                return i.imageType === 7
+            })
+            if (item) {
+                msg.user_fansLevel = parseInt(item.content.level)
+                msg.user.user_fansLightName = item.content.name
+            }
         }
         return msg
     }
-    getLevel(arr, type) {
-        if (!arr || arr.length === 0) {
-            return 0
-        }
-        let item = arr.find(i => {
-            return i.imageType === type
-        })
-        if (item) {
-            return parseInt(item.content.level)
-        } else {
-            return 0
-        }
-    }
+
     messageParse(dom) {
         if (!dom[this.propsId].children.props.message) {
             return null
@@ -165,7 +173,7 @@ const Barrage = class {
         let msg = dom[this.propsId].children.props.message.payload
         let result = {
             method: msg.common.method,
-            user_nickName:'Undefind',
+            user_nickName: 'Undefind',
         }
 
         result = Object.assign(result, this.getUser(msg.user))
