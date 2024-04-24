@@ -201,7 +201,7 @@ const Barrage = class {
             case 'WebcastRoomMessage':
                 result = Object.assign(result, {
                     //  分享直播間
-                    msg_content: msg.content
+                    msg_content: '分享了直播间'
                 })
                 break
             case 'WebcastFansclubMessage':
