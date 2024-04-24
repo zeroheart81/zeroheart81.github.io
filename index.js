@@ -198,11 +198,11 @@ const Barrage = class {
             case 'WebcastLikeMessage':
                 result = Object.assign(result, {
                     //  給主播點贊
-                    msg_content: '给主播点赞'
+                    msg_content: '为主播点赞'
                 })
                 break
             case 'WebcastRoomMessage':
-                result.user_nickName = msg.display_text.pieces[0].user_value.user.nickname
+                result.user_nickName = msg.common.display_text.pieces[0].user_value.user.nickname
                 result = Object.assign(result, {
                     //  分享直播間
                     msg_content: '分享了直播间'
