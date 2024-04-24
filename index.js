@@ -179,7 +179,7 @@ const Barrage = class {
         result = Object.assign(result, this.getUser(msg.user))
         switch (msg.common.method) {
             case 'WebcastGiftMessage':
-                console.log(msg)
+                //console.log(msg)
                 result = Object.assign(result, {
                     //gift_repeatCount: parseInt(), //  数量？
                     msg_content: msg.common.describe,
