@@ -98,6 +98,7 @@ const Barrage = class {
                             if (this.ws.readyState === 1) {
                                 this.ws.send(JSON.stringify(message));
                             }
+                        }
                     }
                 }
             });
