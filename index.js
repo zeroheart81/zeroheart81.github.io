@@ -119,8 +119,10 @@ const Barrage = class {
                             this.ws.send(JSON.stringify(message));
                         }
                     }
-                } else {
-                    alert('mutation.type異常')
+                } else{
+                    if(mutation.removedNodes.length){
+                        //console.log('删除一条信息')
+                    }
                 }
             }
         });
