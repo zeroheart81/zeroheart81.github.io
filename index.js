@@ -188,7 +188,7 @@ const Barrage = class {
                     gift_comboCount: parseInt(msg.combo_count),
                     gift_repeatCount: parseInt(msg.repeat_count),
                     gift_image: msg.gift.icon.url_list[0],
-                    gift_diamondCount: msg.gift.diamondCount,
+                    gift_diamondCount: msg.gift.diamond_count,
                     gift_describe: msg.gift.describe,
                 })
                 break
