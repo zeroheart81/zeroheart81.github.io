@@ -177,6 +177,9 @@ const Barrage = class {
         }
 
         result = Object.assign(result, this.getUser(msg.user))
+        if (msg.nickname === '牛厂长'){
+            console.log('牛厂长大力！！！！！')
+        }
         switch (msg.common.method) {
             case 'WebcastGiftMessage':
                 //console.log(msg)
