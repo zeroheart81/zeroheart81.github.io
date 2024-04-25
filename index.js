@@ -191,6 +191,9 @@ const Barrage = class {
                     gift_diamondCount: msg.gift.diamond_count,
                     gift_describe: msg.gift.describe,
                 })
+                if (result.gift_comboCount > 30 || result.gift_repeatCount > 30) {
+                    console.log('超级礼物！！！')
+                }
                 break
             case 'WebcastChatMessage':
                 result = Object.assign(result, {
