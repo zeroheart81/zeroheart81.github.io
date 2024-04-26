@@ -16,7 +16,7 @@
 <script type="text/javascript">
     var ws = new WebSocket("ws://127.0.0.1:9527/chat");
     ws.onmessage = function(e) {
-        $("#contents").append("<p>" + e.data + "</p>");
+        $("#contents").text("<p>" + e.data + "</p>");
     };
     function sendMsg() {
         var msg = $("#msg").val();
