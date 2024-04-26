@@ -22,7 +22,7 @@
         var timeinterval = 3 * 1000; // 断线重连轮询间隔
 
         function onRecv(e) {
-            $("#contents").context = e.data;
+            $("#contents").context(e.data);
         };
         //console.log('正在等待服务器启动...');
         timer = setInterval(() => {
