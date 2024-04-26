@@ -21,24 +21,22 @@
         var timer;
         var timeinterval = 3 * 1000; // 断线重连轮询间隔
 
-        function reConnect() {
-            console.log('正在等待服务器启动...');
-            timer = setInterval(() => {
-                if (ws) {
-                    if (ws.readyState == 1) {
-                        return
-                    }
-                };
-                ws = new WebSocket(wsurl);
-                console.log('状态 ->', ws.readyState);
-                setTimeout(() => {
-                    if (ws.readyState === 1) {
-                        console.log(`[${new Date().toLocaleTimeString()}]`, '服务重新连接成功!');
-                        ws.send("show");
-                    }
-                }, 2000);
-            }, timeinterval);
-        };
+        console.log('正在等待服务器启动...');
+        timer = setInterval(() => {
+            if (ws) {
+                if (ws.readyState == 1) {
+                    return
+                }
+            };
+            ws = new WebSocket(wsurl);
+            console.log('状态 ->', ws.readyState);
+            setTimeout(() => {
+                if (ws.readyState === 1) {
+                    console.log(`[${new Date().toLocaleTimeString()}]`, '服务重新连接成功!');
+                    ws.send("show");
+                }
+            }, 2000);
+        }, timeinterval);
 
         ws.onmessage = function (e) {
             $("#contents").text(e.data);
