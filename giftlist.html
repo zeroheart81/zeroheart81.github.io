@@ -24,11 +24,13 @@
         function onRecv(e) {
             $("#contents").text(e.data);
         };
-        console.log('正在等待服务器启动...');
+        //console.log('正在等待服务器启动...');
         timer = setInterval(() => {
             if (ws) {
                 if (ws.readyState == 1) {
                     return
+                }else{
+                    $("#contents").text("等待连接···");
                 }
             };
             ws = new WebSocket(wsurl);
