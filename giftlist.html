@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8">
     <title>聊天室</title>
 </head>
+
 <body>
     <div id="contents" style="height:500px;overflow:auto;"></div>
     <div>
@@ -11,18 +13,45 @@
         <a href="javascript:;" onclick="sendMsg()">发送</a>
     </div>
 
-<!-- jQuery -->
-<script src="https://zeroheart81.github.io/jquery.min.js"></script>
-<script type="text/javascript">
-    var ws = new WebSocket("ws://127.0.0.1:9527/chat");
-    ws.onmessage = function(e) {
-        $("#contents").text("<p>" + e.data + "</p>");
-    };
-    function sendMsg() {
-        var msg = $("#msg").val();
-        ws.send(msg);
-        $("#msg").val("");
-    }
-</script>
+    <!-- jQuery -->
+    <script src="https://zeroheart81.github.io/jquery.min.js"></script>
+    <script type="text/javascript">
+        var wsurl = "ws://127.0.0.1:9527";
+        var ws = null;
+        var timer;
+        var timeinterval = 3 * 1000; // 断线重连轮询间隔
+
+        function reConnect() {
+            console.log('正在等待服务器启动...');
+            timer = setInterval(() => {
+                if (ws) {
+                    if (ws.readyState == 1) {
+                        return
+                    }
+                };
+                ws = new WebSocket(wsurl);
+                console.log('状态 ->', ws.readyState);
+                setTimeout(() => {
+                    if (ws.readyState === 1) {
+                        console.log(`[${new Date().toLocaleTimeString()}]`, '服务重新连接成功!');
+                        ws.send("show");
+                    }
+                }, 2000);
+            }, timeinterval);
+        };
+
+        ws.onmessage = function (e) {
+            $("#contents").text(e.data);
+        };
+
+        function sendMsg() {
+            var msg = $("#msg").val();
+            ws.send(msg);
+            $("#msg").val("");
+        };
+
+        reConnect();
+    </script>
 </body>
+
 </html>
