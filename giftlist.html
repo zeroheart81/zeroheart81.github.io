@@ -7,8 +7,11 @@
 </head>
 
 <body>
-    <div id="contents" style="height:500px;overflow:auto;"></div>
+    <div id="contents" style="height:50px;overflow:auto;"></div>
     <div>
+        <textarea id="giftlist" rows="30" cols="30">
+            我是一个文本框。
+            </textarea><br>
         <textarea id="msg"></textarea>
         <a href="javascript:;" onclick="sendMsg()">发送</a>
     </div>
@@ -40,7 +43,7 @@
         }, timeinterval);
 
         function onRecv(e) {
-            $("#contents").text(e.data);
+            document.getElementById("giftlist").value = e.data;
         };
 
         function sendMsg() {
