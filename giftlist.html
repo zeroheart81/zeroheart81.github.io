@@ -10,7 +10,6 @@
     <div id="contents" style="height:50px;overflow:auto;"></div>
     <div>
         <textarea id="giftlist" rows="30" cols="30">
-            我是一个文本框。
             </textarea><br>
         <textarea id="msg"></textarea>
         <a href="javascript:;" onclick="sendMsg()">发送</a>
@@ -30,8 +29,12 @@
                 if (ws.readyState == 1) {
                     return
                 }
-            };
-            ws = new WebSocket(wsurl);
+                else {
+                    ws.initWebsocket()
+                }
+            } else {
+                ws = new WebSocket(wsurl);
+            }
             console.log('状态 ->', ws.readyState);
             setTimeout(() => {
                 if (ws.readyState === 1) {
