@@ -14,7 +14,6 @@ const Barrage = class {
     ws = null
     observer = null
     chatObserverrom = null
-    gifteffectsbserver = null
     option = {}
     event = {}
     eventRegirst = {}
@@ -130,15 +129,19 @@ const Barrage = class {
             }
         });
         this.chatObserverrom.observe(this.chatDom, { childList: true });
-        
-        //this.gifteffectsbserver = new MutationObserver((mutationsList) => {
-        //    for (let mutation of mutationsList) {
-        //        if (mutation.type === 'childList' && mutation.addedNodes.length) {
-        //        
-        //        }
-        //    }
-        //});
-        //this.gifteffectsbserver.observe(this.gifteffect, { childList: true });1
+
+        if (this.gifteffect && this.gifteffect.length > 0) {
+            for (let item of this.gifteffect) {
+                let gifteffectsbserver = new MutationObserver((mutationsList) => {
+                    for (let mutation of mutationsList) {
+                        if (mutation.type === 'childList' && mutation.addedNodes.length) {
+
+                        }
+                    }
+                });
+                gifteffectsbserver.observe(item, { childList: true });
+            }
+        }
     }
     getUser(user) {
         if (!user) {
@@ -189,7 +192,7 @@ const Barrage = class {
         }
 
         result = Object.assign(result, this.getUser(msg.user))
-        if (msg.nickname === '牛厂长'){
+        if (msg.nickname === '牛厂长') {
             console.log('牛厂长大力！！！！！')
         }
         switch (msg.common.method) {
