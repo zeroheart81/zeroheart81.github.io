@@ -131,17 +131,14 @@ const Barrage = class {
         });
         this.chatObserverrom.observe(this.chatDom, { childList: true });
         
-        this.gifteffectsbserver = new MutationObserver((mutationsList) => {
-            for (let mutation of mutationsList) {
-                if (mutation.type === 'childList' && mutation.addedNodes.length) {
-                } else {
-                    if (mutation.removedNodes.length) {
-                        //console.log('删除一条信息')
-                    }
-                }
-            }
-        });
-        this.gifteffectsbserver.observe(this.gifteffect, { childList: true });
+        //this.gifteffectsbserver = new MutationObserver((mutationsList) => {
+        //    for (let mutation of mutationsList) {
+        //        if (mutation.type === 'childList' && mutation.addedNodes.length) {
+        //        
+        //        }
+        //    }
+        //});
+        //this.gifteffectsbserver.observe(this.gifteffect, { childList: true });1
     }
     getUser(user) {
         if (!user) {
