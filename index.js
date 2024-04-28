@@ -14,6 +14,7 @@ const Barrage = class {
     ws = null
     observer = null
     chatObserverrom = null
+    gifteffectsbserver = null
     option = {}
     event = {}
     eventRegirst = {}
@@ -130,7 +131,7 @@ const Barrage = class {
         });
         this.chatObserverrom.observe(this.chatDom, { childList: true });
         
-        this.chatObserverrom = new MutationObserver((mutationsList) => {
+        this.gifteffectsbserver = new MutationObserver((mutationsList) => {
             for (let mutation of mutationsList) {
                 if (mutation.type === 'childList' && mutation.addedNodes.length) {
                 } else {
@@ -140,7 +141,7 @@ const Barrage = class {
                 }
             }
         });
-        this.chatObserverrom.observe(this.gifteffect, { childList: true });
+        this.gifteffectsbserver.observe(this.gifteffect, { childList: true });
     }
     getUser(user) {
         if (!user) {
