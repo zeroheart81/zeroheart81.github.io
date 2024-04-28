@@ -9,16 +9,15 @@
 <body>
     <div id="contents" style="height:50px;overflow:auto;"></div>
     <div>
-        <textarea id="giftlist" rows="30" cols="30">
+        <textarea id="giftlist" rows="30" cols="40">
             </textarea><br>
-        <textarea id="msg"></textarea>
-        <a href="javascript:;" onclick="sendMsg()">发送</a>
+        <textarea id="url">ws://127.0.0.1:9527</textarea>
+        <a href="javascript:;" onclick="sendMsg()">换Server</a>
     </div>
 
     <!-- jQuery -->
     <script src="https://zeroheart81.github.io/jquery.min.js"></script>
     <script type="text/javascript">
-        var wsurl = "ws://127.0.0.1:9527";
         var ws = null;
         var timer;
         var timeinterval = 3 * 1000; // 断线重连轮询间隔
@@ -33,7 +32,7 @@
                     ws.initWebsocket()
                 }
             } else {
-                ws = new WebSocket(wsurl);
+                ws = new WebSocket($("#url").val());
             }
             console.log('状态 ->', ws.readyState);
             setTimeout(() => {
@@ -46,13 +45,16 @@
         }, timeinterval);
 
         function onRecv(e) {
-            document.getElementById("giftlist").value = e.data;
+            $("#giftlist").val(e.data);
         };
 
         function sendMsg() {
-            var msg = $("#msg").val();
-            ws.send(msg);
-            $("#msg").val("");
+            var msg = $("#url").val();
+            //ws.send(msg);
+            //$("#msg").val("");
+            //wsurl = msg;
+            ws.close();
+            ws = null;
         };
 
         reConnect();
