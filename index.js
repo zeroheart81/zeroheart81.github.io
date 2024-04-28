@@ -9,6 +9,7 @@ const Barrage = class {
     timeinterval = 3 * 1000 // 断线重连轮询间隔
     propsId = null
     chatDom = null
+    gifteffect = null   //  坐下角礼物
     roomJoinDom = null
     ws = null
     observer = null
@@ -35,6 +36,7 @@ const Barrage = class {
         this.propsId = Object.keys(document.querySelector('.webcast-chatroom___list'))[1]
         this.chatDom = document.querySelector('.webcast-chatroom___items').children[0]
         this.roomJoinDom = document.querySelector('.webcast-chatroom___bottom-message')
+        this.gifteffect = document.querySelectorAll('.ljM5iqdR')
         this.reConnect()
     }
 
@@ -127,6 +129,18 @@ const Barrage = class {
             }
         });
         this.chatObserverrom.observe(this.chatDom, { childList: true });
+        
+        this.chatObserverrom = new MutationObserver((mutationsList) => {
+            for (let mutation of mutationsList) {
+                if (mutation.type === 'childList' && mutation.addedNodes.length) {
+                } else {
+                    if (mutation.removedNodes.length) {
+                        //console.log('删除一条信息')
+                    }
+                }
+            }
+        });
+        this.chatObserverrom.observe(this.gifteffect, { childList: true });
     }
     getUser(user) {
         if (!user) {

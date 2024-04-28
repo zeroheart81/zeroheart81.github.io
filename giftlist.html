@@ -12,7 +12,8 @@
         <textarea id="giftlist" rows="30" cols="40">
             </textarea><br>
         <textarea id="url">ws://127.0.0.1:9527</textarea>
-        <a href="javascript:;" onclick="sendMsg()">换Server</a>
+        <a href="javascript:;" onclick="sendMsg()">换Server</a><br>
+        <a href="javascript:;" onclick="sendclr()">计数归零</a>
     </div>
 
     <!-- jQuery -->
@@ -55,6 +56,10 @@
             //wsurl = msg;
             ws.close();
             ws = null;
+        };
+
+        function sendclr(){
+            ws.send("clear");
         };
 
         reConnect();
