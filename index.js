@@ -135,8 +135,7 @@ const Barrage = class {
                 let gifteffectsbserver = new MutationObserver((mutationsList) => {
                     for (let mutation of mutationsList) {
                         if (mutation.type === 'childList' && mutation.addedNodes.length) {
-                            let dom = mutation.addedNodes[0]
-                            for (let node of dom[this.propsId].childNodes){
+                            for (let node of mutation.addedNodes[0].childNodes){
                                 let giftuserimage = ndoe.childNodes[0]     //  头像
                                 let giftusername = node.childNodes[1]   //  送礼用户名
                                 let giftimageurl= node.childNodes[1]//    礼物图片
