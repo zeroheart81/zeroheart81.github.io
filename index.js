@@ -135,7 +135,12 @@ const Barrage = class {
                 let gifteffectsbserver = new MutationObserver((mutationsList) => {
                     for (let mutation of mutationsList) {
                         if (mutation.type === 'childList' && mutation.addedNodes.length) {
-
+                            dom = mutation.addedNodes[0]
+                            for (let node of dom[this.propsId].childNodes){
+                                let giftuserimage = ndoe.childNodes[0]     //  头像
+                                let giftusername = node.childNodes[1]   //  送礼用户名
+                                let giftimageurl= node.childNodes[1]//    礼物图片
+                            }
                         }
                     }
                 });
@@ -192,9 +197,6 @@ const Barrage = class {
         }
 
         result = Object.assign(result, this.getUser(msg.user))
-        if (msg.nickname === '牛厂长') {
-            console.log('牛厂长大力！！！！！')
-        }
         switch (msg.common.method) {
             case 'WebcastGiftMessage':
                 //console.log(msg)
